@@ -1,0 +1,61 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  only:
+    refs:
+      - master
+  before_script:
+    - cat ${JANDEX_REGISTRY_KEY} | docker login --username json_key --password-stdin cr.yandex
+  script:
+    - docker build
+      --build-arg REACT_APP_TMETRIC_TOKEN=${REACT_APP_TMETRIC_TOKEN}
+      --build-arg REACT_APP_CLIENT_ID=${REACT_APP_CLIENT_ID}
+      --build-arg REACT_APP_CLIENT_SECRET=${REACT_APP_CLIENT_SECRET}
+      --build-arg REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
+      --build-arg STAGE_ENV=0
+      -t cr.yandex/crpgcdmv6rgq68b22lqi/hub-frontend:${CI_COMMIT_SHORT_SHA} -f docker/Dockerfile .
+    - docker push cr.yandex/crpgcdmv6rgq68b22lqi/hub-frontend:${CI_COMMIT_SHORT_SHA}
+
+build_stage:
+  stage: build
+  only:
+    refs:
+      - develop
+      - feature/stage-deploy
+  before_script:
+    - cat ${JANDEX_REGISTRY_KEY} | docker login --username json_key --password-stdin cr.yandex
+  script:
+    - docker build
+      --build-arg REACT_APP_TMETRIC_TOKEN=${REACT_APP_TMETRIC_TOKEN}
+      --build-arg REACT_APP_CLIENT_ID=${REACT_APP_CLIENT_ID}
+      --build-arg REACT_APP_CLIENT_SECRET=${REACT_APP_CLIENT_SECRET}
+      --build-arg REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL_STAGE}
+      --build-arg STAGE_ENV=1
+      -t cr.yandex/crpgcdmv6rgq68b22lqi/hub-frontend-stage:${CI_COMMIT_SHORT_SHA} -f docker/Dockerfile .
+    - docker push cr.yandex/crpgcdmv6rgq68b22lqi/hub-frontend-stage:${CI_COMMIT_SHORT_SHA}
+
+deploy:
+  stage: deploy
+  image: lwolf/helm-kubectl-docker
+  only:
+    refs:
+      - master
+  variables:
+    IMAGE: cr.yandex/crpgcdmv6rgq68b22lqi/hub-frontend:${CI_COMMIT_SHORT_SHA}
+  script:
+    - kubectl set image deployment/hub-frontend-deployment app-hub-frontend=${IMAGE} --kubeconfig ${KUBECONFIG} --record
+
+deploy_stage:
+  stage: deploy
+  image: lwolf/helm-kubectl-docker
+  only:
+    refs:
+      - develop
+      - feature/stage-deploy
+  variables:
+    IMAGE: cr.yandex/crpgcdmv6rgq68b22lqi/hub-frontend-stage:${CI_COMMIT_SHORT_SHA}
+  script:
+    - kubectl set image deployment/hub-frontend-deployment-stage app-hub-frontend=${IMAGE} --kubeconfig ${KUBECONFIG} --record
