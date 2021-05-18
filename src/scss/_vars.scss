@@ -1,3 +1,4 @@
+@import "fonts";
 // LightMode
 $lm-color-primary-blue: #3D1DF6;
 $lm-color-primary-black: #222324;
@@ -8,9 +9,11 @@ $lm-color-secondary-darkGrey: #B2B7C2;
 $lm-color-secondary-middleGrey: #D1D6E1;
 $lm-color-secondary-lightGrey: #F7F8FA;
 
-$lm-color-accent-orange: #B2B7C2;//TODO уточнить у дизайнера мб красный
-$lm-color-accent-green: #D1D6E1;//TODO уточнить у дизайнера мб зеленый
-$lm-color-accent-darkGreen: #F7F8FA;//TODO уточнить у дизайнера мб темнозеленый
+$lm-color-accent-orange: #F44508;
+$lm-color-accent-darkOrange: #EE3E00;
+$lm-color-accent-green: #51C229;
+$lm-color-accent-darkGreen: #39A712;
+$lm-color-accent-darkBlue: #4126DC;
 // DarkMode
 $dm-color-primary-blue: #3D1DF6;
 $dm-color-primary-black: #1C1C1D;
@@ -21,17 +24,12 @@ $dm-color-secondary-middleGray: #525260;
 //$dm-color-secondary-gray: #???;
 
 $dm-color-accent-orange: #FF4200;
+$dm-color-accent-darkOrange: #EE3E00;
 $dm-color-accent-green: #5FD037;
 $dm-color-accent-darkGreen: #2FA904;
+$dm-color-accent-darkBlue: #4126DC;
 
 // spacing
 $base-spacing: 20px;
 $half-spacing: $base-spacing/2;
 
-// breakpoints
-$mob-start: 374px;
-$palm-start: 420px;
-$lap-start: 768px;
-$desk-start: 990px;
-$wide-start: 1200px;
-$page-width: 1600px;

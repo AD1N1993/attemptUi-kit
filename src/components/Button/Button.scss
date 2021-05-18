@@ -1,7 +1,74 @@
 @import "src/scss/vars";
-.button{
-  width: 100px;
-  height: 20px;
-  background-color: #1ea7fd;
-  color: $color-primary;
+
+.btn {
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 700;
+  min-width: fit-content;
+  outline: none;
+  justify-content: center;
+  padding: 14px 28px;
+  position: relative;
+  transition-duration: .1s;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  font-family: $fnt-secondary;
+
+  &--light {
+    background-color: $lm-color-primary-black;
+    color: $lm_color-primary-white;
+
+    &-save {
+      background-color: $lm-color-accent-green;
+
+      &:hover {
+        background-color: $lm-color-accent-darkGreen;
+      }
+    }
+
+    &-accent {
+      background-color: $lm-color-primary-blue;
+      color: $lm-color-primary-black;
+
+      &:hover {
+        background-color: #3418DA;
+      }
+    }
+
+    &-additional {
+      background-color: $lm-color-secondary-lightGrey;
+      color: $lm-color-primary-black;
+
+      &:hover {
+        color: $lm-color-primary-blue;
+      }
+
+      &:focus {
+        color: $lm-color-primary-blue;
+      }
+    }
+  }
+
+  &--dark {
+    background-color: $lm_color-primary-white;
+    color: $lm-color-primary-black;
+  }
+
+  &--disabled {
+    pointer-events: none;
+    color: rgba($lm-color-primary-white, .4);
+  }
+
+  &:hover {
+    background-color: $lm-color-secondary-blackest;
+  }
+
+  &:focus {
+    outline: 1px solid $lm-color-primary-blue;
+  }
 }
