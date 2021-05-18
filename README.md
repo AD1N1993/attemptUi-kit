@@ -69,3 +69,4 @@ REACT_APP_CLIENT_SECRET```
 3. Релиз готовится основываясь на сделанных задачах и собирается в ветку типа `feature/release_<version_package.json>`, например: `feature/release_0.2.5`.
 4. Релизная ветка сливается в `master`, а дальше разворачивается в продакшен.
 ````
+# attemptUi-kit
